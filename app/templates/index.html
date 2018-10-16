@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block head %}
+  {{ super() }}
+  <style>
+    .image-container {
+      height: 100%;
+      min-width: 100px;
+      max-width: 100px;
+      margin-right: 26px;
+      background-color: black;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      -webkit-box-shadow: 0px 2px 6px 0px rgba(225, 225, 225, 0.5);
+      -moz-box-shadow: 0px 2px 6px 0px rgba(225, 225, 225, 0.5);
+      box-shadow: 0px 2px 6px 0px rgba(225, 225, 225, 0.5);
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+  <div style="margin-top: 65px">
+    {% for book in books %}
+      <a href="{{ book['url'] }}">
+        <div style="padding: 26px; height: 188px; display: flex">
+          <img class="image-container" src="{{ book['img_src'] }}"/>
+          <div style="display: flex; flex-direction: column">
+            <p class="card-title">{{ book['title'] }}</p>
+            <p class="card-subtitle">{{ book['author'] }}</p>
+            <div>
+              {% for i in range(book['rate']) %}
+                <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #F8E71C"></span>
+              {% endfor %}
+              {% for i in range(book['rate'], 5) %}
+                <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #9B9B9B"></span>
+              {% endfor %}
+            </div>
+            <div style="flex: 1; display: flex; align-items: flex-end">
+              <p class="card-detail"><b>最近更新：</b>{{ book['info'] }}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

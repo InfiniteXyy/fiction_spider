@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block styles %}
+  {{ super() }}
+  <style>
+    .article_words {
+      font-size: 18px;
+      margin-bottom: 10px;
+      line-height: 29px;
+    }
+  </style>
+{% endblock %}
+{% block page_content %}
+  <h3 style="margin-bottom: 24px">{{ title }}</h3>
+  {% for i in lines %}
+    <p class="article_words">　　{{ i }}</p>
+  {% endfor %}
+{% endblock %}
+
+{% block footer %}
+  <a href={{ prev.href }}><b>上一章：</b>{{ prev.title }}</a>
+  <a href={{ next.href }}><b>下一章：</b>{{ next.title }}</a>
+{% endblock %}
+

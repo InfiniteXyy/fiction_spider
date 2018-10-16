@@ -1,0 +1,43 @@
+from flask import Flask, render_template, request
+import app.model.chapter_model as chapter_model
+import app.model.book_model as book_model
+from flask_bootstrap import Bootstrap
+
+app = Flask(__name__)
+Bootstrap(app)
+
+
+@app.route("/")
+def main():
+    books = book_model.get_books()
+    return render_template("index.html", books=books)
+
+
+@app.route("/<string:book_url>")
+def chapter_list(book_url):
+    page = request.args.get("page", default=1, type=int)
+    sort_type = request.args.get("sort", default="asc", type=str)
+    chapters = chapter_model.get_chapters(book_url, page, sort_type)
+    if len(chapters) == 0:
+        return render_template("404.html")
+    max_page = chapter_model.get_max_page(book_url)
+    cur_min_page = 1
+    if page - 3 >= 1:
+        cur_min_page = page - 3
+    cur_max_page = max_page
+    if page + 3 <= max_page:
+        cur_max_page = page + 3
+    return render_template("chapter_list.html", chapters=chapters, page=page, max_page=max_page,
+                           cur_range=(cur_min_page, cur_max_page), book_url=book_url)
+
+
+@app.route("/<string:book_url>/articles/<int:index>")
+def article(book_url, index):
+    chapter = chapter_model.get_chapter_by_index(book_url, index)
+    lines = chapter["content"].split("\n")
+    props = {"title": chapter["title"],
+             "lines": lines, "index": index,
+             "next": {"title": "", "href": ""},
+             "prev": {"title": "", "href": ""}}
+
+    return render_template("article.html", **props)
