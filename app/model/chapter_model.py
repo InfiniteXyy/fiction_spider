@@ -22,5 +22,9 @@ def get_chapter_by_index(book_url, index):
     return result
 
 
-def get_max_page(book_url):
+def get_chapters_count(book_url):
     return chapters.count_documents({"book_url": book_url})
+
+
+def get_page_size() -> int:
+    return PAGE_SIZE

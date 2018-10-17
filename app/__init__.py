@@ -3,6 +3,7 @@ import app.model.chapter_model as chapter_model
 import app.model.book_model as book_model
 from flask_bootstrap import Bootstrap
 from datetime import datetime
+from app.util.page_helper import create_page_index
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -33,16 +34,19 @@ def chapter_list(book_url):
     sort_type = request.args.get("sort", default="asc", type=str)
     next_sort_type = "desc" if sort_type == "asc" else "asc"
     chapters = chapter_model.get_chapters(book_url, page, sort_type)
+
     if len(chapters) == 0:
         return render_template("404.html")
-    max_page = chapter_model.get_max_page(book_url)
+    chapters_count = chapter_model.get_chapters_count(book_url)
     book = book_model.get_book_by_url(book_url)
 
     props = {
         "chapters": chapters,
-        "max_page": max_page,
+        "chapters_count": chapters_count,
+        "pages": create_page_index(chapters_count, chapter_model.get_page_size(), sort_type),
+        "cur_page": page,
         "book": book,
-        "change_sort_type": next_sort_type
+        "change_sort_type": next_sort_type,
     }
 
     return render_template("chapter_list.html", **props)

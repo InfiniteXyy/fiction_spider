@@ -16,6 +16,13 @@
       box-shadow: 0px 2px 6px 0px rgba(225, 225, 225, 0.5);
     }
 
+    .book-container {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      height: 165px;
+      display: flex;
+    }
+
     #custom-search-input {
       padding: 3px;
       border: solid 1px #E4E4E4;
@@ -49,6 +56,10 @@
     #custom-search-input .glyphicon-search {
       font-size: 23px;
     }
+
+    a:hover {
+      background-color: #eeeeee;
+    }
   </style>
 {% endblock %}
 {% block navbar %}
@@ -71,26 +82,24 @@
   </div>
 {% endblock %}
 {% block content %}
-  <div>
+  <div class="container">
     {% for book in books %}
-      <a href="{{ book['url'] }}">
-        <div style="padding: 26px; height: 188px; display: flex">
-          <img class="image-container" src="{{ book['img_src'] }}"/>
-          <div style="display: flex; flex-direction: column">
-            <p class="card-title">{{ book['title'] }}</p>
-            <p class="card-subtitle">{{ book['author'] }}</p>
-            <div>
-              {% for i in range(book['rate']) %}
-                <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #F8E71C"></span>
-              {% endfor %}
-              {% for i in range(book['rate'], 5) %}
-                <span class="glyphicon glyphicon-star" aria-hidden="true" style=" color: #dddddd"></span>
-              {% endfor %}
-            </div>
-            <div style="flex: 1; display: flex; justify-content: flex-end; flex-direction: column">
-              <p class="card-detail"><b>最近更新：</b>{{ book['update_time']|datetime }}</p>
-              <p class="card-detail">{{ book['info'] }}</p>
-            </div>
+      <a class="book-container" href="{{ book['url'] }}">
+        <img class="image-container" src="{{ book['img_src'] }}"/>
+        <div style="display: flex; flex-direction: column">
+          <p class="card-title">{{ book['title'] }}</p>
+          <p class="card-subtitle">{{ book['author'] }}</p>
+          <div>
+            {% for i in range(book['rate']) %}
+              <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #F8E71C"></span>
+            {% endfor %}
+            {% for i in range(book['rate'], 5) %}
+              <span class="glyphicon glyphicon-star" aria-hidden="true" style=" color: #dddddd"></span>
+            {% endfor %}
+          </div>
+          <div style="flex: 1; display: flex; justify-content: flex-end; flex-direction: column">
+            <p class="card-detail"><b>最近更新：</b>{{ book['update_time']|datetime }}</p>
+            <p class="card-detail">{{ book['info'] }}</p>
           </div>
         </div>
       </a>
