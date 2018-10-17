@@ -4,14 +4,14 @@
   <div>
     <div class="header-container">
       <span style="font-size: 14px; color: #9B9B9B;">共 {{ max_page }} 章</span>
-      <a class="right-container" href="?sort=desc">
+      <a class="right-container" href="?sort={{ change_sort_type }}">
         <span class="glyphicon glyphicon-sort" aria-hidden="true"
               style="color: #dddddd; margin-right: 6px; font-size: 12px"></span>
-        <span style="font-size: 14px; color: #9B9B9B;">逆序</span>
+        <span style="font-size: 14px; color: #9B9B9B;">{{ "逆序" if change_sort_type == "desc" else "顺序" }}</span>
       </a>
     </div>
     {% for item in chapters %}
-      <a href="{{ book_url }}/articles/{{ item["index"] }}">
+      <a href="{{ book["url"] }}/articles/{{ item["index"] }}">
         <div class="list-item">
           <p class="item-title">{{ item["title"] }}</p>
           <div class="right-container">
@@ -24,9 +24,30 @@
   </div>
 {% endblock %}
 
-{% block menuitem %}
-  <li><a href="/?page={{ page }}&sort=desc">逆序</a></li>
+{% block navbar %}
+  <div class="book-container">
+    <img class="image-container" src="{{ book['img_src'] }}"/>
+    <div>
+      <p class="book-title">{{ book["title"] }}</p>
+      <p class="book-subtitle">{{ book["author"] }} 著</p>
+      <p class="book-info"><b>最近更新：</b></p>
+      <p class="book-info">{{ book["info"] }}</p>
+    </div>
+  </div>
+  <div style="margin: 16px; padding-left: 10px">
+    <button type="button" style="margin-right: 4px" class="btn btn-sm bg-blue">
+      <span style="color: white;">加入书架</span>
+    </button>
+    <button type="button" style="margin-right: 4px" class="btn btn-sm bg-green">
+      <span style="color: white;">设置推送</span>
+    </button>
+    <button type="button" style="margin-right: 4px" class="btn btn-sm bg-yellow">
+      <span style="color: white;">请求更新</span>
+    </button>
+  </div>
 {% endblock %}
+
+
 {% block head %}
   {{ super() }}
   <style>
@@ -66,10 +87,45 @@
     a {
       text-decoration: none;
     }
+
+    .image-container {
+      min-height: 139px;
+      max-height: 139px;
+      min-width: 100px;
+      max-width: 100px;
+      margin-right: 26px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+
+    .book-container {
+      padding-left: 26px;
+      padding-right: 26px;
+      padding-top: 26px;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .book-title {
+      font-size: 26px;
+      color: #4a4a4a;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .book-subtitle {
+      font-size: 18px;
+      color: #9b9b9b;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .book-info {
+      font-size: 14px;
+      color: #7a7a7a;
+      margin-bottom: 0;
+    }
   </style>
 {% endblock %}
 
-{% block navbar %}
-
-
-{% endblock %}

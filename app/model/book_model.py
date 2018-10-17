@@ -14,3 +14,7 @@ def get_books():
 
 def get_book_title_by_url(url):
     return books.find_one({"url": url})["title"]
+
+
+def get_book_by_url(url):
+    return books.find_one({"url": url})

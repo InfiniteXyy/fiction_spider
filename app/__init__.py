@@ -31,18 +31,28 @@ def main():
 def chapter_list(book_url):
     page = request.args.get("page", default=1, type=int)
     sort_type = request.args.get("sort", default="asc", type=str)
+    next_sort_type = "desc" if sort_type == "asc" else "asc"
     chapters = chapter_model.get_chapters(book_url, page, sort_type)
     if len(chapters) == 0:
         return render_template("404.html")
     max_page = chapter_model.get_max_page(book_url)
+    book = book_model.get_book_by_url(book_url)
 
-    return render_template("chapter_list.html", chapters=chapters, max_page=max_page, book_url=book_url)
+    props = {
+        "chapters": chapters,
+        "max_page": max_page,
+        "book": book,
+        "change_sort_type": next_sort_type
+    }
+
+    return render_template("chapter_list.html", **props)
 
 
 @app.route("/<string:book_url>/articles/<int:index>")
 def article(book_url, index):
     chapter = chapter_model.get_chapter_by_index(book_url, index)
     lines = chapter["content"].split("\n")
+    lines = filter(lambda x: x.strip() != '', lines)
     props = {"title": chapter["title"],
              "lines": lines, "index": index,
              "next": {"title": "", "href": ""},

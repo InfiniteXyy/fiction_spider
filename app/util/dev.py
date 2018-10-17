@@ -6,4 +6,4 @@ chapters = my_db['chapters']
 books = my_db['books']
 
 if __name__ == '__main__':
-    books.update_one({"url": "xieshen"}, {"$set": {'update_time': time.time()}})
+    pass
