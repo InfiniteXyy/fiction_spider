@@ -16,17 +16,62 @@
       box-shadow: 0px 2px 6px 0px rgba(225, 225, 225, 0.5);
     }
 
-    a:hover {
-      text-decoration: none;
+    #custom-search-input {
+      padding: 3px;
+      border: solid 1px #E4E4E4;
+      border-radius: 6px;
+      background-color: #fff;
+      margin-top: 12px;
+      margin-bottom: 8px;
     }
 
-    a {
-      text-decoration: none;
+    #custom-search-input input {
+      border: 0;
+      box-shadow: none;
+    }
+
+    #custom-search-input button {
+      margin: 2px 0 0 0;
+      background: none;
+      box-shadow: none;
+      border: 0;
+      color: #aaaaaa;
+      padding: 0 8px 0 10px;
+      border-left: solid 1px #ccc;
+    }
+
+    #custom-search-input button:hover {
+      border: 0;
+      box-shadow: none;
+      border-left: solid 1px #ccc;
+    }
+
+    #custom-search-input .glyphicon-search {
+      font-size: 23px;
     }
   </style>
 {% endblock %}
+{% block navbar %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>InfiniteX</h2>
+        <div id="custom-search-input">
+          <div class="input-group col-md-12">
+            <input type="text" class="form-control input-lg" placeholder="搜索"/>
+            <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
 {% block content %}
-  <div style="margin-top: 65px">
+  <div>
     {% for book in books %}
       <a href="{{ book['url'] }}">
         <div style="padding: 26px; height: 188px; display: flex">
@@ -39,11 +84,12 @@
                 <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #F8E71C"></span>
               {% endfor %}
               {% for i in range(book['rate'], 5) %}
-                <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #9B9B9B"></span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true" style=" color: #dddddd"></span>
               {% endfor %}
             </div>
-            <div style="flex: 1; display: flex; align-items: flex-end">
-              <p class="card-detail"><b>最近更新：</b>{{ book['info'] }}</p>
+            <div style="flex: 1; display: flex; justify-content: flex-end; flex-direction: column">
+              <p class="card-detail"><b>最近更新：</b>{{ book['update_time']|datetime }}</p>
+              <p class="card-detail">{{ book['info'] }}</p>
             </div>
           </div>
         </div>

@@ -2,9 +2,23 @@ from flask import Flask, render_template, request
 import app.model.chapter_model as chapter_model
 import app.model.book_model as book_model
 from flask_bootstrap import Bootstrap
+from datetime import datetime
 
 app = Flask(__name__)
 Bootstrap(app)
+
+
+def format_datetime(value, format='medium'):
+    if not value:
+        return "无"
+    if format == 'full':
+        format = "%m月%d日"
+    elif format == 'medium':
+        format = "%m月%d日"
+    return datetime.utcfromtimestamp(value).strftime(format)
+
+
+app.jinja_env.filters['datetime'] = format_datetime
 
 
 @app.route("/")
@@ -21,14 +35,8 @@ def chapter_list(book_url):
     if len(chapters) == 0:
         return render_template("404.html")
     max_page = chapter_model.get_max_page(book_url)
-    cur_min_page = 1
-    if page - 3 >= 1:
-        cur_min_page = page - 3
-    cur_max_page = max_page
-    if page + 3 <= max_page:
-        cur_max_page = page + 3
-    return render_template("chapter_list.html", chapters=chapters, page=page, max_page=max_page,
-                           cur_range=(cur_min_page, cur_max_page), book_url=book_url)
+
+    return render_template("chapter_list.html", chapters=chapters, max_page=max_page, book_url=book_url)
 
 
 @app.route("/<string:book_url>/articles/<int:index>")
