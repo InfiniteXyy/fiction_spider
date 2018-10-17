@@ -3,7 +3,7 @@ from .connection import my_db
 
 chapters = my_db["chapters"]
 
-PAGE_SIZE = 30
+PAGE_SIZE = 70
 
 if "chapters" not in my_db.list_collection_names():
     print("create collection chapters")

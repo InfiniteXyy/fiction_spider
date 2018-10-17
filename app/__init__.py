@@ -19,7 +19,14 @@ def format_datetime(value, format='medium'):
     return datetime.utcfromtimestamp(value).strftime(format)
 
 
+def format_article_content(value):
+    lines = value.split("\n")
+    lines = filter(lambda x: x.strip() != '', lines)
+    return lines
+
+
 app.jinja_env.filters['datetime'] = format_datetime
+app.jinja_env.filters['article'] = format_article_content
 
 
 @app.route("/")
@@ -55,10 +62,8 @@ def chapter_list(book_url):
 @app.route("/<string:book_url>/articles/<int:index>")
 def article(book_url, index):
     chapter = chapter_model.get_chapter_by_index(book_url, index)
-    lines = chapter["content"].split("\n")
-    lines = filter(lambda x: x.strip() != '', lines)
-    props = {"title": chapter["title"],
-             "lines": lines, "index": index,
+    props = {"chapter": chapter,
+             "index": index,
              "next": {"title": "", "href": ""},
              "prev": {"title": "", "href": ""}}
 

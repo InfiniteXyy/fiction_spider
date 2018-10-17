@@ -7,17 +7,24 @@
       margin-bottom: 10px;
       line-height: 34px;
     }
+    p a {
+      font-size: 16px;
+      margin: 10px 0;
+    }
   </style>
 {% endblock %}
 {% block page_content %}
-  <h3 style="margin-bottom: 24px">{{ title }}</h3>
-  {% for i in lines %}
+  <h3 style="margin-bottom: 24px">{{ chapter["title"] }}</h3>
+  {% for i in chapter["content"] | article %}
     <p class="article_words">　　{{ i }}</p>
   {% endfor %}
 {% endblock %}
 
 {% block footer %}
-  <a href={{ prev.href }}><b>上一章：</b>{{ prev.title }}</a>
-  <a href={{ next.href }}><b>下一章：</b>{{ next.title }}</a>
+  <p><a href="{{ index - 1 }}"><b>上一章：</b>{{ prev.title }}</a></p>
+  <p><a href="{{ index + 1 }}"><b>下一章：</b>{{ next.title }}</a></p>
 {% endblock %}
+
+{% block back_title %}<a class="navbar-brand" href="/{{ chapter["book_url"] }}">{{ chapter["book"] }}</a>{% endblock %}
+
 

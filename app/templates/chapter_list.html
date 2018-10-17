@@ -2,7 +2,7 @@
 
 {% block content %}
   <div>
-    <div class="header-container">
+    <div class="header-container" id="myHeader">
       <div class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <span>{{ pages[cur_page - 1] }}</span>
@@ -21,7 +21,7 @@
         <span style="font-size: 14px; color: #9B9B9B; margin-right: 16px">共 {{ chapters_count }} 章</span>
         <a href="?sort={{ change_sort_type }}">
         <span class="glyphicon glyphicon-sort" aria-hidden="true"
-              style="color: #6a6a6a; margin-right: 3px; font-size: 12px"></span>
+              style="color: #6a6a6a; margin-right: 3px; font-size: 12px;"></span>
           <span style="font-size: 14px; color: #4a4a4a;">{{ "逆序" if change_sort_type == "desc" else "顺序" }}</span>
         </a>
       </div>
@@ -41,6 +41,7 @@
 {% endblock %}
 
 {% block navbar %}
+  {{ super() }}
   <div>
     <div class="book-container">
       <img class="image-container" src="{{ book['img_src'] }}"/>
@@ -67,6 +68,22 @@
   </div>
 {% endblock %}
 
+{% block scripts %}
+  {{ super() }}
+  <script>
+      const header = document.getElementById("myHeader");
+      const sticky = header.offsetTop;
+      window.onscroll = function () {
+          if (window.pageYOffset > sticky) {
+              header.classList.add("sticky");
+          } else {
+              header.classList.remove("sticky");
+          }
+      };
+
+  </script>
+{% endblock %}
+
 {% block head %}
   {{ super() }}
   <style>
@@ -78,6 +95,10 @@
       display: flex;
       align-items: center;
       border-top: 0.75px solid #DDDDDD;
+      background-color: white;
+    }
+    .glyphicon {
+      position: unset;
     }
 
     .list-item {
@@ -103,6 +124,17 @@
       align-items: center;
     }
 
+    .sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      border-bottom: 0.75px solid #DDDDDD;
+    }
+
+    .sticky + .list-container {
+      padding-top: 36px;
+    }
+
     a {
       text-decoration: none;
     }
@@ -125,7 +157,6 @@
     .book-container {
       padding-left: 20px;
       padding-right: 20px;
-      padding-top: 30px;
       display: flex;
       flex-direction: row;
     }
@@ -140,8 +171,7 @@
     .book-subtitle {
       font-size: 18px;
       color: #9b9b9b;
-      font-weight: 500;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
 
     .book-info {
@@ -159,7 +189,6 @@
     .dropdown ul.dropdown-menu {
       box-shadow: none;
     }
-
 
   </style>
 {% endblock %}
