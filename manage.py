@@ -6,9 +6,10 @@ from app import app
 from app.util.update import refresh_data
 from app.util.spider.jianling import Jianling
 from app.util.spider.xieshen import Xieshen
+from app.util.spider.shengwu import shengwu
 import sys
 
-refresh_list = [Jianling(), Xieshen()]
+refresh_list = [Jianling(), Xieshen(),shengwu()]
 
 
 def switch_command(type):

@@ -14,6 +14,8 @@ BOOKS = [
      "url": "xieshen"},
     {"title": "网游之修罗传说", "author": "火星引力", "rate": 4, "info": "第117章「仅供学习使用！仅供学习使用！」",
      "img_src": "http://pic.baike.soso.com/p/20100703/bki-20100703183017-2018209783.jpg", "url": "xiuluo"},
+    {"title": "圣物星辰", "author": "乱世狂刀", "rate": 3, "info": "第117章「仅供学习使用！仅供学习使用！」",
+     "img_src": "https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/boxapp_novel/wh%3D267%2C357/sign=5d1d2a7e5b4e9258a6618eecaab5fd6b/023b5bb5c9ea15ce62ed2213bb003af33a87b2ad.jpg", "url": "shengwu"},
     {"title": "龙族", "author": "江南", "rate": 5, "info": "第117章「仅供学习使用！仅供学习使用！」",
      "img_src": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539708719589&di"
                 "=5e730e3963f3673a135ba756f80eb2e5&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F"

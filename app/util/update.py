@@ -1,5 +1,9 @@
+from multiprocessing.pool import Pool
+
 from app.model.connection import my_db
 from app.util.spider.spider import Spider
+from app.util.spider.shengwu import shengwu
+
 import time
 
 chapters = my_db["chapters"]
@@ -23,7 +27,17 @@ def refresh_data(spider: Spider):
     if len(new_articles) == 0:
         print("没有更新!")
     else:
-        chapters.insert_many(new_articles)
+        for i in new_articles:
+            chapters.insert_one(i)
+        #chapters.insert_many(new_articles)
         print("更新完成！共 {} 章".format(len(new_articles)))
         books.update_one({"url": spider.book_url},
                          {"$set": {"info": new_articles[-1]["title"], "update_time": time.time()}})
+if __name__ == '__main__':
+    GROUP_START = 1
+    GROUP_END = 20
+    pool = Pool()
+    groups = ([x * 20 for x in range(GROUP_START, GROUP_END + 1)])
+    pool.map(refresh_data(shengwu), groups)
+    pool.close()
+    pool.join()
