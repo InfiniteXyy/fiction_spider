@@ -43,3 +43,4 @@ class shengwu(Spider):
 #     pool.map(get_content(cls,"ff"), groups)
 #     pool.close()
 #     pool.join()
+
