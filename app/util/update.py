@@ -1,5 +1,5 @@
 from multiprocessing.pool import Pool
-
+from app.util.bot.qq import send_message
 from app.model.connection import my_db
 from app.util.spider.spider import Spider
 from app.util.spider.shengwu import Shengwu
@@ -9,6 +9,7 @@ import time
 
 chapters = my_db["chapters"]
 books = my_db["books"]
+subscribe = my_db["subscribe"]
 
 
 def refresh(spider: Spider):
@@ -32,6 +33,10 @@ def refresh(spider: Spider):
     if len(new_articles) == 0:
         print("   没有更新!")
     else:
+        items = list(subscribe.find({"book":spider.book_name}))
+        for item in items:
+            send_message(item.get("name"),spider.book_name+"已经更新啦!"+"更新了{}".format(len(new_articles)))
+        #send_message("kyw7", "haha测试而已,没有更新")
         print("更新完成！共 {} 章".format(len(new_articles)))
         books.update_one({"url": spider.book_url},
                          {"$set": {"info": new_articles[-1]["title"], "update_time": time.time()}})
