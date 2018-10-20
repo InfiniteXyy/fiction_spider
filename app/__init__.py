@@ -9,14 +9,14 @@ app = Flask(__name__)
 Bootstrap(app)
 
 
-def format_datetime(value, format='medium'):
+def format_datetime(value, time_format='datetime'):
     if not value:
         return "无"
-    if format == 'full':
-        format = "%m月%d日"
-    elif format == 'medium':
-        format = "%m月%d日"
-    return datetime.utcfromtimestamp(value).strftime(format)
+    if time_format == 'date':
+        time_format = "%m月%d日"
+    elif time_format == 'datetime':
+        time_format = "%m月%d日"
+    return datetime.utcfromtimestamp(value).strftime(time_format)
 
 
 def format_article_content(value):

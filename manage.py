@@ -3,23 +3,24 @@ import time
 import sys
 import io
 from app import app
-from app.util.update import refresh_data
+from app.util.update import refresh
 from app.util.spider.jianling import Jianling
 from app.util.spider.xieshen import Xieshen
-from app.util.spider.shengwu import shengwu
+from app.util.spider.shengwu import Shengwu
 import sys
+from multiprocessing import Pool
 
-refresh_list = [Jianling(), Xieshen(),shengwu()]
+refresh_list = [Jianling(), Xieshen(), Shengwu()]
 
 
-def switch_command(type):
-    if type == "run":
+def switch_command(arg):
+    if arg == "run":
         app.run("0.0.0.0", 5000, True)
-    elif type == "refresh":
+    elif arg == "refresh":
         print("++++++++++++++++++++++++++")
         print(datetime.fromtimestamp(time.time()).strftime("%m月%d日 %H:%M:%S"))
-        for i in refresh_list:
-            refresh_data(i)
+        for spider in refresh_list:
+            refresh(spider)
 
 
 if __name__ == '__main__':
