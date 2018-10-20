@@ -1,14 +1,11 @@
 from datetime import datetime
 import time
-import sys
-import io
 from app import app
 from app.util.update import refresh
 from app.util.spider.jianling import Jianling
 from app.util.spider.xieshen import Xieshen
 from app.util.spider.shengwu import Shengwu
 import sys
-from multiprocessing import Pool
 
 refresh_list = [Jianling(), Xieshen(), Shengwu()]
 
@@ -24,7 +21,7 @@ def switch_command(arg):
 
 
 if __name__ == '__main__':
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
     if len(sys.argv) == 2:
         arg = sys.argv[1]

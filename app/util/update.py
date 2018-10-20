@@ -26,7 +26,7 @@ def refresh(spider: Spider):
             new_articles.append(i)
             chapters.insert_one(i)
             if index == 0:
-                print()
+                print("")
             print("增加", i['title'])
 
     if len(new_articles) == 0:
