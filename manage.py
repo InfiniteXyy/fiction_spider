@@ -32,6 +32,6 @@ if __name__ == '__main__':
         arg = sys.argv[1]
         switch_command(arg)
     elif len(sys.argv) == 1:
-        switch_command("refresh")
+        switch_command("run")
     else:
         print("参数错误")

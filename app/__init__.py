@@ -1,5 +1,6 @@
 from flask import Flask
 from app.controllers.main import main
+from app.controllers.subscribe import subscribe
 from app.model import book_model
 from app.model import chapter_model
 from flask_bootstrap import Bootstrap
@@ -9,6 +10,7 @@ from app.util.page_helper import create_page_index
 app = Flask(__name__)
 Bootstrap(app)
 app.register_blueprint(main, url_prefix='/')
+app.register_blueprint(subscribe, url_prefix='/sub')
 
 
 def format_datetime(value, time_format='datetime'):
