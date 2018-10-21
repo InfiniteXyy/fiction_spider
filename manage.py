@@ -18,8 +18,8 @@ def switch_command(arg):
         print("++++++++++++++++++++++++++*******")
         print(datetime.fromtimestamp(time.time()).strftime("%m月%d日 %H:%M:%S"))
         pool = []
-        for spider in refresh_list:
-            pool.append(threading.Thread(target=refresh, args=(spider,)))
+        for index, spider in enumerate(refresh_list):
+            pool.append(threading.Thread(target=refresh, args=(spider, 0.5 * index)))
         for i in pool:
             i.start()
         for i in pool:

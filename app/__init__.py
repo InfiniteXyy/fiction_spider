@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-import app.model.chapter_model as chapter_model
-import app.model.book_model as book_model
+from app.model import book_model
+from app.model import chapter_model
 from flask_bootstrap import Bootstrap
 from datetime import datetime
 from app.util.page_helper import create_page_index

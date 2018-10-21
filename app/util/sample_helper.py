@@ -1,4 +1,3 @@
-import pymongo
 from app.model.connection import my_db
 
 books = my_db["books"]

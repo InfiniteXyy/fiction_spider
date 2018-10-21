@@ -1,7 +1,6 @@
 import requests
 from pyquery import PyQuery as pq
-
-from app.util.spider.spider import Spider
+from .spider import Spider
 
 
 class Shengwu(Spider):

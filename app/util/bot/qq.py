@@ -4,10 +4,10 @@ import urllib.parse as parse
 base_url = "http://127.0.0.1:8188/send/buddy/"
 
 
-def send_message(fridends, content):
-    fridends = parse.quote(fridends)
+def send_message(friends, content):
+    friends = parse.quote(friends)
     content = parse.quote(content)
-    url = base_url + fridends+"/" + content
+    url = base_url + friends + "/" + content
     req.urlopen(url)
     print(req)
 
