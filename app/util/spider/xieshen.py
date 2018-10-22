@@ -13,7 +13,8 @@ class Xieshen(Spider):
     book_name = "逆天邪神"
     book_url = "xieshen"
 
-    def get_article_list(self):
+    @classmethod
+    def get_article_list(cls):
         output = []
         r = requests.get("http://www.nitianxieshen.com/")
         r.encoding = "utf-8"
@@ -31,7 +32,8 @@ class Xieshen(Spider):
                 output.append({"title": children.text(), "href": href})
         return output
 
-    def get_content(self, url):
+    @classmethod
+    def get_content(cls, url):
         r = requests.get(url)
         r.encoding = "utf-8"
         doc = pq(r.text)

@@ -10,7 +10,5 @@ def insert_new_book(title, author, rate, info, img_src, url):
 
 
 if __name__ == '__main__':
-    cur_documents = list(chapters.find({"book_url": "jianling"}, {"href": True}))
-    href_list = [x['href'] for x in cur_documents]
-    print(href_list[0])
+    chapters.delete_one({"book_url": "xiuluo", "href": "http://www.nitianxieshen.com/shengwu/1152.html"})
 

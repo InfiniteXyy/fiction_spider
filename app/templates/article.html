@@ -7,9 +7,9 @@
       margin-bottom: 10px;
       line-height: 34px;
     }
+
     p a {
-      font-size: 16px;
-      margin: 10px 0;
+      font-size: 18px;
     }
   </style>
 {% endblock %}
@@ -21,8 +21,14 @@
 {% endblock %}
 
 {% block footer %}
-  <p><a href="{{ index - 1 }}"><b>上一章：</b>{{ prev.title }}</a></p>
-  <p><a href="{{ index + 1 }}"><b>下一章：</b>{{ next.title }}</a></p>
+  <div style="margin: 50px 0;">
+    {% if prev %}
+      <p><a href="{{ index - 1 }}">上一章：{{ prev.title }}</a></p>
+    {% endif %}
+    {% if next %}
+      <p><a href="{{ index + 1 }}">下一章：{{ next.title }}</a></p>
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block back_title %}<a class="navbar-brand" href="/{{ chapter["book_url"] }}">{{ chapter["book"] }}</a>{% endblock %}

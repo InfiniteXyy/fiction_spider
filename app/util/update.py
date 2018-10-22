@@ -3,6 +3,8 @@ from app.util.spider.spider import Spider
 import time
 import threading
 
+from app.util.spider.xiuluo import Xiuluo
+
 THREAD_NUM = 8
 chapters = connection.my_db["chapters"]
 books = connection.my_db["books"]
@@ -56,3 +58,7 @@ def refresh(spider: Spider, sleep_time: float):
         print("更新完成！共 {} 章".format(len(new_article_list)))
         books.update_one({"url": spider.book_url},
                          {"$set": {"info": chapter_list[-1]["title"], "update_time": time.time()}})
+
+
+if __name__ == '__main__':
+    refresh(Xiuluo, 0)

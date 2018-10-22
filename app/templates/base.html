@@ -5,6 +5,7 @@
 {% endblock %}
 {% block head %}
   {{ super() }}
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
   <style>
     a:hover {
       text-decoration: none;

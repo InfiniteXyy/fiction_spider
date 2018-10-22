@@ -5,10 +5,12 @@ from app.util.update import refresh
 from app.util.spider.jianling import Jianling
 from app.util.spider.xieshen import Xieshen
 from app.util.spider.shengwu import Shengwu
+from app.util.spider.quanzhi import Quanzhi
+from app.util.spider.xiuluo import Xiuluo
 import threading
 import sys
 
-refresh_list = [Jianling(), Xieshen(), Shengwu()]
+refresh_list = [Jianling, Xieshen, Shengwu, Quanzhi]
 
 
 def switch_command(arg):

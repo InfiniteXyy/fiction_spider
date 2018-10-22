@@ -7,7 +7,8 @@ class Shengwu(Spider):
     book_name = "圣物星辰"
     book_url = "shengwu"
 
-    def get_article_list(self):
+    @classmethod
+    def get_article_list(cls):
         output = []
         req = requests.get("http://www.nitianxieshen.com/shengwu/")
         req.encoding = "utf-8"
@@ -26,7 +27,8 @@ class Shengwu(Spider):
                 output.append({"title": children.text(), "href": href})
         return output
 
-    def get_content(self, url):
+    @classmethod
+    def get_content(cls, url):
         r = requests.get(url)
         r.encoding = "utf-8"
         doc = pq(r.text)
@@ -45,4 +47,4 @@ class Shengwu(Spider):
 
 if __name__ == '__main__':
     t_url = "http://www.nitianxieshen.com/shengwu/460.html"
-    print(Shengwu().get_content(t_url))
+    print(Shengwu.get_content(t_url))

@@ -39,9 +39,21 @@ def chapter_list(book_url):
 @main.route("/<string:book_url>/articles/<int:book_index>")
 def article(book_url, book_index):
     chapter = chapter_model.get_chapter_by_index(book_url, book_index)
+    prev_next = chapter_model.get_prev_next_chapter_titles(book_url, book_index)
+    if len(prev_next) == 2:
+        prev_next.sort(key=lambda x: x['index'], reverse=True)
+        _next = prev_next[0]
+        _prev = prev_next[1]
+    else:
+        if prev_next[0]['index'] < book_index:
+            _next = None
+            _prev = prev_next[0]
+        else:
+            _prev = None
+            _next = prev_next[0]
     props = {"chapter": chapter,
              "index": book_index,
-             "next": {"title": "", "href": ""},
-             "prev": {"title": "", "href": ""}}
+             "next": _next,
+             "prev": _prev}
 
     return render_template("article.html", **props)

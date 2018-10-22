@@ -1,5 +1,5 @@
 import pymongo
-from .connection import my_db
+from app.model.connection import my_db
 
 chapters = my_db["chapters"]
 
@@ -28,3 +28,12 @@ def get_chapters_count(book_url):
 
 def get_page_size() -> int:
     return PAGE_SIZE
+
+
+def get_prev_next_chapter_titles(book_url, index):
+    return list(chapters.find({"$and": [{"book_url": book_url}, {"$or": [{"index": index - 1}, {"index": index + 1}]}]},
+                              {"_id": False, "content": False, "book": False, "book_url": False, "href": False}))
+
+
+if __name__ == '__main__':
+    print(get_prev_next_chapter_titles("xieshen", 1255))
