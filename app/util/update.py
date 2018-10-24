@@ -3,7 +3,7 @@ from app.util.spider.spider import Spider
 import time
 import threading
 
-from app.util.spider.xiuluo import Xiuluo
+from app.util.spider.longzu5 import Longzu5
 
 THREAD_NUM = 8
 chapters = connection.my_db["chapters"]
@@ -61,4 +61,4 @@ def refresh(spider: Spider, sleep_time: float):
 
 
 if __name__ == '__main__':
-    refresh(Xiuluo, 0)
+    pass
