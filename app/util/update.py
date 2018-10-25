@@ -1,9 +1,8 @@
 from app.model import connection
 from app.util.spider.spider import Spider
+from app.middleware import update_message
 import time
 import threading
-
-from app.util.spider.longzu5 import Longzu5
 
 THREAD_NUM = 8
 chapters = connection.my_db["chapters"]
@@ -58,6 +57,7 @@ def refresh(spider: Spider, sleep_time: float):
         print("更新完成！共 {} 章".format(len(new_article_list)))
         books.update_one({"url": spider.book_url},
                          {"$set": {"info": chapter_list[-1]["title"], "update_time": time.time()}})
+        update_message.on_update(spider.book_url, spider.book_name, new_article_list)
 
 
 if __name__ == '__main__':

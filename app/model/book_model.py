@@ -9,7 +9,7 @@ if "chapters" not in my_db.list_collection_names():
 
 
 def get_books():
-    return books.find()
+    return books.find().sort([("update_time", pymongo.DESCENDING)])
 
 
 def get_book_title_by_url(url):

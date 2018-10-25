@@ -10,13 +10,15 @@ from app.util.spider.xiuluo import Xiuluo
 from app.util.spider.longzu5 import Longzu5
 import threading
 import sys
+import io
+from settings import _debug
 
 refresh_list = [Jianling, Xieshen, Shengwu, Quanzhi, Longzu5]
 
 
 def switch_command(arg):
     if arg == "run":
-        app.run("0.0.0.0", 5000, True)
+        app.run("0.0.0.0", 5000, _debug)
     elif arg == "refresh":
         print("++++++++++++++++++++++++++*******")
         print(datetime.fromtimestamp(time.time()).strftime("%m月%d日 %H:%M:%S"))
@@ -30,7 +32,8 @@ def switch_command(arg):
 
 
 if __name__ == '__main__':
-    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    if _debug:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     if len(sys.argv) == 2:
         arg = sys.argv[1]
         switch_command(arg)

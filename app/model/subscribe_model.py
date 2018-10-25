@@ -20,3 +20,7 @@ def get_subscribe_list_by_nickname(nickname):
 
 def get_subscribe_list_by_book(book_url):
     return subscribe.find({"book_url": book_url}, {"_id": False})
+
+
+def unsub(nickname, book_url):
+    return subscribe.delete_one({"nickname": nickname, "book_url": book_url})
