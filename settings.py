@@ -3,4 +3,4 @@ import os
 
 load_dotenv()
 _mongo_url = os.getenv("MONGODB_ADDRESS")
-_debug = os.getenv("DEBUG_MODE") == "DEBUG"
+_debug = os.getenv("DEBUG_MODE") == "TRUE"

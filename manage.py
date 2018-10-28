@@ -6,7 +6,6 @@ from app.util.spider.jianling import Jianling
 from app.util.spider.xieshen import Xieshen
 from app.util.spider.shengwu import Shengwu
 from app.util.spider.quanzhi import Quanzhi
-from app.util.spider.xiuluo import Xiuluo
 from app.util.spider.longzu5 import Longzu5
 import threading
 import sys

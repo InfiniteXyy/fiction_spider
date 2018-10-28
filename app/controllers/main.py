@@ -1,4 +1,4 @@
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, make_response
 from app.model import book_model
 from app.model import chapter_model
 from app.util.page_helper import create_page_index
@@ -23,7 +23,11 @@ def chapter_list(book_url):
         return render_template("404.html")
     chapters_count = chapter_model.get_chapters_count(book_url)
     book = book_model.get_book_by_url(book_url)
-
+    if request.cookies.get(book_url):
+        last_read_cookie = request.cookies.get(book_url).split('&')
+        last_read = {"index": last_read_cookie[1], "title": last_read_cookie[0]}
+    else:
+        last_read = None
     props = {
         "chapters": chapters,
         "chapters_count": chapters_count,
@@ -31,6 +35,7 @@ def chapter_list(book_url):
         "cur_page": page,
         "book": book,
         "change_sort_type": next_sort_type,
+        "last_read": last_read
     }
 
     return render_template("chapter_list.html", **props)
@@ -55,5 +60,6 @@ def article(book_url, book_index):
              "index": book_index,
              "next": _next,
              "prev": _prev}
-
-    return render_template("article.html", **props)
+    response = make_response(render_template("article.html", **props))
+    response.set_cookie(book_url, "{}&{}".format(chapter['title'], book_index))
+    return response

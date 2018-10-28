@@ -45,13 +45,22 @@
   <div>
     <div class="book-container">
       <img class="image-container" src="{{ book['img_src'] }}"/>
-      <div>
-        <p class="book-title">{{ book["title"] }}</p>
-        <p class="book-subtitle">{{ book["author"] }} 著</p>
-        {% if book["info"] %}
-          <p class="book-info"><b>最近更新：</b></p>
-          <p class="book-info">{{ book["info"] }}</p>
-        {% endif %}
+      <div style="display: flex; justify-content: space-between; flex-direction: column">
+        <div>
+          <p class="book-title">{{ book["title"] }}</p>
+          <p class="book-subtitle">{{ book["author"] }} 著</p>
+        </div>
+        <div>
+          <p style="margin-bottom: 2px"><b>最近更新：</b>
+            <a class="book-info" href="{{ book["url"] }}/articles/{{ chapters_count }}">{{ book["info"] }}
+            </a></p>
+          {% if last_read %}
+            <p style="margin-bottom: 2px"><b>上次读到：</b>
+              <a class="book-info"
+                 href="{{ book["url"] }}/articles/{{ last_read["index"] }}">{{ last_read["title"] }}</a>
+            </p>
+          {% endif %}
+        </div>
       </div>
     </div>
     <div style="margin: 16px; padding-left: 4px">
@@ -97,6 +106,7 @@
       border-top: 0.75px solid #DDDDDD;
       background-color: white;
     }
+
     .glyphicon {
       position: unset;
     }
@@ -143,6 +153,11 @@
       background-color: #eeeeee;
     }
 
+    b {
+      color: #4a4a4a;
+      margin-bottom: 0;
+    }
+
     .image-container {
       min-height: 139px;
       max-height: 139px;
@@ -171,12 +186,12 @@
     .book-subtitle {
       font-size: 18px;
       color: #9b9b9b;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
 
     .book-info {
       font-size: 14px;
-      color: #7a7a7a;
+      color: #428bca;
       margin-bottom: 0;
     }
 
