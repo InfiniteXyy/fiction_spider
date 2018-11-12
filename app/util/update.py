@@ -2,6 +2,7 @@ from app.model import connection
 from app.util.spider.spider import Spider
 from app.middleware import update_message
 import time
+import datetime
 import threading
 
 THREAD_NUM = 8
@@ -20,6 +21,7 @@ def divide_chunk(data, chunk_size):
 def download_chapter(get_content_method, chapter_list):
     for i in chapter_list:
         i['content'] = get_content_method(i['href'])
+        i['update_time'] = time.time()
         print("增加", i['title'])
         time.sleep(0.5)
         chapters.insert_one(i)

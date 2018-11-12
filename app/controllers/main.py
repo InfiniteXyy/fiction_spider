@@ -2,6 +2,10 @@ from flask import render_template, request, Blueprint, make_response
 from app.model import book_model
 from app.model import chapter_model
 from app.util.page_helper import create_page_index
+import datetime
+
+expire_date = datetime.datetime.now()
+expire_date = expire_date + datetime.timedelta(days=30)
 
 main = Blueprint("main", __name__)
 
@@ -61,5 +65,5 @@ def article(book_url, book_index):
              "next": _next,
              "prev": _prev}
     response = make_response(render_template("article.html", **props))
-    response.set_cookie(book_url, "{}&{}".format(chapter['title'], book_index))
+    response.set_cookie(book_url, "{}&{}".format(chapter['title'], book_index), expires=expire_date)
     return response

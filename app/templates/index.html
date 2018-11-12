@@ -2,6 +2,10 @@
 {% block head %}
   {{ super() }}
   <style>
+    .invisible {
+      display: none;
+    }
+
     .image-container {
       height: 100%;
       min-width: 100px;
@@ -69,9 +73,9 @@
         <h2>InfiniteX</h2>
         <div id="custom-search-input">
           <div class="input-group col-md-12">
-            <input type="text" class="form-control input-lg" placeholder="搜索"/>
+            <input type="text" class="form-control input-lg" id="search-input" placeholder="搜索"/>
             <span class="input-group-btn">
-              <button class="btn btn-info btn-lg" type="button">
+              <button class="btn btn-info btn-lg" type="button" onclick="book_filter()">
                 <i class="glyphicon glyphicon-search"></i>
               </button>
             </span>
@@ -89,14 +93,6 @@
         <div style="display: flex; flex-direction: column">
           <p class="card-title">{{ book['title'] }}</p>
           <p class="card-subtitle">{{ book['author'] }}</p>
-          <div>
-            {% for i in range(book['rate']) %}
-              <span class="glyphicon glyphicon-star" aria-hidden="true" style="color: #F8E71C"></span>
-            {% endfor %}
-            {% for i in range(book['rate'], 5) %}
-              <span class="glyphicon glyphicon-star" aria-hidden="true" style=" color: #dddddd"></span>
-            {% endfor %}
-          </div>
           <div style="flex: 1; display: flex; justify-content: flex-end; flex-direction: column">
             <p class="card-detail"><b>最近更新：</b><span class="update-time">{{ book['update_time'] }}</span></p>
             <p class="card-detail">{{ book['info'] }}</p>
@@ -119,6 +115,5 @@
       for (var i of times) {
           i.innerHTML = moment(Number(i.innerHTML) * 1000).fromNow()
       }
-
   </script>
 {% endblock %}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+    <title>{{ book.title }}</title>
+    <link href="http://fic.infinitex.cn/{{ book.url }}"/>
+    <id>http://fic.infinitex.cn/{{ book.url }}</id>
+    <author>
+        <name>{{ book.author }}</name>
+    </author>
+    {% for chapter in chapters %}
+        <entry>
+            <title>{{ chapter.title }}</title>
+            <link href="http://fic.infinitex.cn/{{ book.url }}/articles/{{ chapter.index }}"/>
+            <id>http://fic.infinitex.cn/{{ book.url }}/articles/{{ chapter.index }}</id>
+            <content type="html">{{ chapter.title }}</content>
+        </entry>
+    {% endfor %}
+</feed>
